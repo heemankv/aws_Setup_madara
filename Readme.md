@@ -5,10 +5,12 @@ This repository contains scripts to set up the necessary AWS resources for the M
 ## Prerequisites
 
 *   AWS CLI installed and configured with necessary permissions.
-*   The scripts use an AWS profile to interact with your AWS account. This is controlled by the `AWS_PROFILE_NAME` environment variable, which defaults to `default-mfa`. If you wish to use a different profile, you can set this variable before running the scripts. For example:
-    ```bash
-    export AWS_PROFILE_NAME="your-profile-name"
-    ```
+*   The scripts use an AWS profile to interact with AWS services. This is controlled by the `AWS_PROFILE_NAME` environment variable, which is defined in `env_setup.sh`.
+    *   By default, it is set to `default-mfa`.
+    *   If you wish to use a different AWS profile for all script interactions, you can set this environment variable before running any setup scripts. For example:
+        ```bash
+        export AWS_PROFILE_NAME="your-custom-profile"
+        ```
 *   Required environment variables for base configuration (like `MADARA_ORCHESTRATOR_AWS_PREFIX`, `AWS_REGION`, etc.) should be reviewed in `env_setup.sh` and adjusted if necessary before the first run.
 
 ## Setup
