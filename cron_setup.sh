@@ -1,3 +1,5 @@
+source ./env_setup.sh
+
 # Generate schedule expression
 INTERVAL_SECONDS=${MADARA_ORCHESTRATOR_EVENT_BRIDGE_INTERVAL_SECONDS}
 if (( INTERVAL_SECONDS == 60 )); then
@@ -19,5 +21,5 @@ for TRIGGER_TYPE in "${WORKER_TRIGGERS[@]}"; do
     --schedule-expression-timezone "UTC" \
     --flexible-time-window '{"Mode":"OFF"}' \
     --target "{\"Arn\":\"${WORKER_TRIGGER_QUEUE_ARN}\",\"RoleArn\":\"${EB_ROLE_ARN}\",\"Input\":\"\\\"${TRIGGER_TYPE}\\\"\"}" \
-    --state ENABLED --region "${AWS_REGION}" --profile default-mfa
+    --state ENABLED --region "${AWS_REGION}" --profile "$AWS_PROFILE_NAME"
 done
