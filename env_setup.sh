@@ -11,12 +11,13 @@ export MADARA_ORCHESTRATOR_AWS_SNS_TOPIC_IDENTIFIER="orchestrator-alerts"
 export MADARA_ORCHESTRATOR_EVENT_BRIDGE_TYPE="Schedule"
 export MADARA_ORCHESTRATOR_EVENT_BRIDGE_INTERVAL_SECONDS="60"
 export AWS_REGION="ap-south-1"
+export AWS_PROFILE_NAME="default-mfa"
 
 # Function to get AWS Account ID
 get_aws_account_id() {
-  AWS_ACCOUNT_ID_VALUE=$(aws sts get-caller-identity --query Account --output text --profile default-mfa)
+  AWS_ACCOUNT_ID_VALUE=$(aws sts get-caller-identity --query Account --output text --profile "$AWS_PROFILE_NAME")
   if [ -z "$AWS_ACCOUNT_ID_VALUE" ]; then
-    echo "Error: Failed to retrieve AWS Account ID. Please check your AWS CLI setup and MFA profile."
+    echo "Error: Failed to retrieve AWS Account ID. Please check your AWS CLI setup and profile: $AWS_PROFILE_NAME."
     # Optionally, exit the script if the Account ID is critical
     # exit 1
   else
