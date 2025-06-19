@@ -1,5 +1,5 @@
 get_queue_name() {
-  echo "${MADARA_ORCHESTRATOR_AWS_SQS_QUEUE_IDENTIFIER_TEMPLATE//\{\}/$1}"
+  echo "${SQS_QUEUE_NAME//\{\}/$1}"
 }
 
 # Create JobHandleFailure queue (DLQ)
@@ -9,6 +9,15 @@ aws sqs create-queue --queue-name "${JOB_HANDLE_FAILURE_QUEUE_NAME}" \
 
 JOB_HANDLE_FAILURE_QUEUE_URL=$(aws sqs get-queue-url --queue-name "${JOB_HANDLE_FAILURE_QUEUE_NAME}" --query 'QueueUrl' --output text --region "${AWS_REGION}" --profile default-mfa)
 JOB_HANDLE_FAILURE_QUEUE_ARN=$(aws sqs get-queue-attributes --queue-url "${JOB_HANDLE_FAILURE_QUEUE_URL}" --attribute-names QueueArn --query 'Attributes.QueueArn' --output text --region "${AWS_REGION}" --profile default-mfa)
+
+# Dynamically create redrive-policy.json
+echo "Creating redrive-policy.json with DLQ ARN: ${JOB_HANDLE_FAILURE_QUEUE_ARN}"
+cat <<EOF > redrive-policy.json
+{
+  "RedrivePolicy": "{\"deadLetterTargetArn\":\"${JOB_HANDLE_FAILURE_QUEUE_ARN}\",\"maxReceiveCount\":5}"
+}
+EOF
+echo "redrive-policy.json created."
 
 # Create WorkerTrigger queue
 WORKER_TRIGGER_QUEUE_NAME=$(get_queue_name "WorkerTrigger")
