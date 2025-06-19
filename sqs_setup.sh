@@ -1,5 +1,5 @@
 get_queue_name() {
-  echo "${MADARA_ORCHESTRATOR_AWS_SQS_QUEUE_IDENTIFIER_TEMPLATE//\{\}/$1}"
+  echo "${SQS_QUEUE_NAME//\{\}/$1}"
 }
 
 # Create JobHandleFailure queue (DLQ)

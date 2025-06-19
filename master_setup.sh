@@ -55,6 +55,9 @@ echo "iam_setup.sh completed successfully."
 echo "EventBridge Policy ARN: ${EB_POLICY_ARN}"
 echo "EventBridge Role ARN: ${EB_ROLE_ARN}"
 
+echo "Sleeping for 20 seconds"
+sleep 20
+
 # Execute Cron setup (EventBridge)
 log_step "Running cron_setup.sh..."
 bash ./cron_setup.sh

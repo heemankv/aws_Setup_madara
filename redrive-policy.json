@@ -1,0 +1,3 @@
+{
+  "RedrivePolicy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:ap-south-1:025097458243:test_orchestrator_JobHandleFailure_queue\",\"maxReceiveCount\":5}"
+}
