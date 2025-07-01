@@ -11,7 +11,7 @@ else
   SCHEDULE_EXPRESSION="rate(${MINUTES} minutes)"
 fi
 
-WORKER_TRIGGERS=("Snos" "Proving" "ProofRegistration" "DataSubmission" "UpdateState" "Batching")
+WORKER_TRIGGERS=("Snos" "Proving" "DataSubmission" "UpdateState" )
 
 for TRIGGER_TYPE in "${WORKER_TRIGGERS[@]}"; do
   RULE_NAME="${EB_RULE_NAME_BASE}-${TRIGGER_TYPE}"
