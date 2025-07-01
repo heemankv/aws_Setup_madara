@@ -3,7 +3,7 @@ get_queue_name() {
 }
 
 # Create JobHandleFailure queue (DLQ)
-JOB_HANDLE_FAILURE_QUEUE_NAME=$(get_queue_name "JobHandleFailure")
+JOB_HANDLE_FAILURE_QUEUE_NAME=$(get_queue_name "job_handle_failure")
 aws sqs create-queue --queue-name "${JOB_HANDLE_FAILURE_QUEUE_NAME}" \
   --attributes VisibilityTimeout=300 --region "${AWS_REGION}" --profile "$AWS_PROFILE_NAME"
 
